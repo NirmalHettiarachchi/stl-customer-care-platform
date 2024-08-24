@@ -17,6 +17,9 @@ import java.util.Map;
 @Configuration
 public class KafkaConfig {
 
+    //.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+    //.\bin\windows\kafka-server-start.bat .\config\server.properties
+
     @Bean
     public ProducerFactory<String, String> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();

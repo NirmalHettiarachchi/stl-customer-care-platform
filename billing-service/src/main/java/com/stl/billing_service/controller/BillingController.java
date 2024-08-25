@@ -25,8 +25,8 @@ public class BillingController {
     }
 
     @PostMapping("/pay/{billId}")
-    public Bill payBill(@PathVariable Long billId) {
-        return billingService.payBill(billId);
+    public Bill payBill(@PathVariable Long billId, @RequestHeader("Authorization") String token) {
+        return billingService.payBill(billId, token);
     }
 
     @PostMapping("/create")

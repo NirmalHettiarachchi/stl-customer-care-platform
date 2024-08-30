@@ -21,6 +21,7 @@ public class KafkaController {
                                    @RequestParam("type") String type,
                                    @RequestParam("message") String message) {
         notificationService.notifyUser(username, type, message);
+        System.out.println("Notification sent successfully!");
         return "Notification sent successfully!";
     }
 

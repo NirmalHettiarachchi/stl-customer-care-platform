@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ChatBubble from "@components/ChatBubble";
 
 const Chat = () => {
   const [messages, setMessages] = useState([
@@ -12,7 +13,6 @@ const Chat = () => {
     if (newMessage.trim() !== "") {
       setMessages([...messages, { sender: "customer", text: newMessage }]);
       setNewMessage("");
-      // Simulate agent's reply after a short delay
       setTimeout(() => {
         setMessages((prevMessages) => [
           ...prevMessages,
@@ -30,22 +30,7 @@ const Chat = () => {
       <div className="flex-grow p-6 overflow-y-auto bg-gray-200 rounded-lg shadow-lg">
         <div className="space-y-4">
           {messages.map((message, index) => (
-            <div
-              key={index}
-              className={`chat ${
-                message.sender === "agent" ? "chat-start" : "chat-end"
-              }`}
-            >
-              <div
-                className={`chat-bubble ${
-                  message.sender === "agent"
-                    ? "bg-primary text-white"
-                    : "bg-gray-400 text-white"
-                }`}
-              >
-                {message.text}
-              </div>
-            </div>
+            <ChatBubble message={message} index={index} />
           ))}
         </div>
       </div>

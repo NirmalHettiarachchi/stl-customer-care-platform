@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/telco-service-activations")
+@CrossOrigin(origins = "*")
 public class TelcoServiceActivationController {
 
     @Autowired

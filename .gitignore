@@ -1,0 +1,3 @@
+*.Dockerfile
+compose.yml
+# **/application.properties

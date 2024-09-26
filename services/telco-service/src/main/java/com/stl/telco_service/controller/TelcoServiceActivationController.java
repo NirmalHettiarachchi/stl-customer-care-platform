@@ -41,7 +41,7 @@ public class TelcoServiceActivationController {
     }
 
     @GetMapping
-    public List<TelcoServiceActivation> getUserBills() {
+    public List<TelcoServiceActivation> getActivatedServices() {
         String username = getCurrentUsername();
         return activationService.getActivatedServicesForUser(username);
     }

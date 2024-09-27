@@ -21,6 +21,9 @@ export default {
         error: {
           DEFAULT: "#EF4444", // Red 500
         },
+        sucess: {
+          DEFAULT: "#22C55E", // Red 500
+        },
       },
     },
   },

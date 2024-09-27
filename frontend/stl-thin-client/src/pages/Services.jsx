@@ -1,8 +1,14 @@
 import Service from "@components/Service";
 import { useEffect, useState } from "react";
+import { getAllService } from "@api/VASServiceAPI";
+
 const Services = () => {
-  let [services, setServices] = useState();
-  useEffect(async () => {}, []);
+  let [services, setServices] = useState([]);
+  useEffect(() => {
+    getAllService().then((res) => {
+      console.log(res.data);
+    });
+  }, []);
   // const services = [
   //   { name: "International Roaming", active: false },
   //   { name: "Ringback Tone", active: true },

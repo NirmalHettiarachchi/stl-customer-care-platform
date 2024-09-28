@@ -16,7 +16,7 @@ export default function Bill({ bill, index }) {
     >
       <div className="flex items-center">
         <CreditCardIcon className="w-6 h-6 text-primary mr-2" />
-        <h3 className="text-lg font-semibold">{bill.month}</h3>
+        <h3 className="text-lg font-semibold">{bill.dueDate}</h3>
       </div>
       <div>
         <p className="text-gray-600">Amount: {bill.amount}</p>

@@ -1,10 +1,14 @@
 package com.stl.notification_service.service;
 
+import com.stl.notification_service.model.Notification;
 import com.stl.notification_service.model.UserNotificationPreference;
+import com.stl.notification_service.repository.NotificationRepository;
 import com.stl.notification_service.repository.UserNotificationPreferenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class NotificationService {
@@ -19,16 +23,34 @@ public class NotificationService {
     @Autowired
     private UserNotificationPreferenceRepository userNotificationPreferenceRepository;
 
-    public void sendEmailNotification(String message) {
+    @Autowired
+    private NotificationRepository notificationRepository;
+
+    public void sendEmailNotification(String username, String message) {
         kafkaTemplate.send(EMAIL_TOPIC, message);
+        Notification notification = new Notification();
+        notification.setUsername(username);
+        notification.setNotificationType(EMAIL_TOPIC);
+        notification.setContent(message);
+        notificationRepository.save(notification);
     }
 
-    public void sendSmsNotification(String message) {
+    public void sendSmsNotification(String username, String message) {
         kafkaTemplate.send(SMS_TOPIC, message);
+        Notification notification = new Notification();
+        notification.setUsername(username);
+        notification.setNotificationType(SMS_TOPIC);
+        notification.setContent(message);
+        notificationRepository.save(notification);
     }
 
-    public void sendPushNotification(String message) {
+    public void sendPushNotification(String username, String message) {
         kafkaTemplate.send(PUSH_TOPIC, message);
+        Notification notification = new Notification();
+        notification.setUsername(username);
+        notification.setNotificationType(PUSH_TOPIC);
+        notification.setContent(message);
+        notificationRepository.save(notification);
     }
 
     public void notifyUser(String username, String notificationType, String message) {
@@ -40,22 +62,26 @@ public class NotificationService {
         switch (notificationType.toLowerCase()) {
             case "email":
                 if (preference.isEmailEnabled()) {
-                    sendEmailNotification(message);
+                    sendEmailNotification(username, message);
                 }
                 break;
             case "sms":
                 if (preference.isSmsEnabled()) {
-                    sendSmsNotification(message);
+                    sendSmsNotification(username, message);
                 }
                 break;
             case "push":
                 if (preference.isPushEnabled()) {
-                    sendPushNotification(message);
+                    sendPushNotification(username, message);
                 }
                 break;
             default:
                 throw new IllegalArgumentException("Unknown notification type: " + notificationType);
         }
+    }
+
+    public List<Notification> getNotificationsForUser(String username) {
+        return notificationRepository.findByUsername(username);
     }
 
     public void updatePreferences(String username, boolean email, boolean sms, boolean push) {

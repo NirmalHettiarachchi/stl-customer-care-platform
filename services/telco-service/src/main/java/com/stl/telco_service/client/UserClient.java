@@ -11,7 +11,7 @@ public class UserClient {
     private RestTemplate restTemplate;
 
     public String getUserInfo(String username) {
-        String url = "http://localhost:8080/users/" + username;
+        String url = "http://user-management-service:8080/users/" + username;
         return restTemplate.getForObject(url, String.class);
     }
 }

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-
 @RestController
 @CrossOrigin(origins = "*")
 
@@ -41,7 +40,7 @@ public class AuthController {
     public User saveUser(@RequestBody User user) {
         return userService.save(user);
     }
-    
+
     @PostMapping("/authenticate")
     public String createAuthenticationToken(@RequestBody User user) throws Exception {
         authenticate(user.getUsername(), user.getPassword());
@@ -61,7 +60,7 @@ public class AuthController {
         String token = UUID.randomUUID().toString();
         userService.createPasswordResetTokenForUser(user, token);
 
-        return "Password reset token: " + token;
+        return token;
     }
 
     private String getCurrentUsername() {

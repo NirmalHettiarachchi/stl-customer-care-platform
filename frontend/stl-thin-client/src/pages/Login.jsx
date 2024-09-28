@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import { loginUser } from "@api/UserAPI";
 
 const Login = () => {
   const isAuthenticated = useIsAuthenticated();
@@ -23,10 +24,7 @@ const Login = () => {
       e.preventDefault();
 
       try {
-        let res = await axios.post(
-          "http://localhost:8080/authenticate",
-          userDetails
-        );
+        let res = await loginUser(userDetails);
         let jwt = await res.data;
         let status = signIn({
           auth: {
@@ -53,7 +51,7 @@ const Login = () => {
             <div className="form-control">
               <label className="label text-secondary">Phone Number</label>
               <input
-                // type="tel"
+                type="tel"
                 placeholder="Enter your phone number"
                 className="input input-bordered w-full bg-gray-200"
                 onInput={(e) => {

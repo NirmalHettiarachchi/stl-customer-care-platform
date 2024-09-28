@@ -43,7 +43,7 @@ public class CamelConfiguration extends RouteBuilder {
                 })
                 .setHeader(Exchange.HTTP_METHOD, constant("POST"))
                 .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
-                .toD("http://localhost:8081/notifications/send" +
+                .toD("http://notification-service:8081/notifications/send" +
                         "?username=${header.username}" +
                         "&type=${header.type}" +
                         "&message=${header.message}");

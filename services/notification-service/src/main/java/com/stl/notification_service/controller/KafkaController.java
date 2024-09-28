@@ -35,7 +35,7 @@ public class KafkaController {
         return "Preferences updated successfully!";
     }
 
-    @GetMapping
+    @GetMapping("")
     public List<Notification> getUserNotifications() {
         String username = getCurrentUsername();
         return notificationService.getNotificationsForUser(username);

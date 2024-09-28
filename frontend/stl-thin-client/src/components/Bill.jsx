@@ -5,9 +5,10 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/solid";
 
-export default function Bill({ bill, index }) {
-  const handlePayment = () => {
-    alert("Proceeding to payment...");
+export default function Bill({ bill, index, setShowModal, setSelectedBill }) {
+  const handlePaymentClick = () => {
+    setSelectedBill(bill);
+    setShowModal(true);
   };
   return (
     <div
@@ -16,7 +17,7 @@ export default function Bill({ bill, index }) {
     >
       <div className="flex items-center">
         <CreditCardIcon className="w-6 h-6 text-primary mr-2" />
-        <h3 className="text-lg font-semibold">{bill.month}</h3>
+        <h3 className="text-lg font-semibold">{bill.dueDate}</h3>
       </div>
       <div>
         <p className="text-gray-600">Amount: {bill.amount}</p>
@@ -27,7 +28,7 @@ export default function Bill({ bill, index }) {
         ) : (
           <button
             className="btn bg-primary text-white flex items-center"
-            onClick={handlePayment}
+            onClick={handlePaymentClick}
           >
             <XMarkIcon className="w-5 h-5 mr-1" /> Pay Now
           </button>

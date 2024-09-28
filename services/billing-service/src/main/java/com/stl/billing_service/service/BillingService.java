@@ -47,7 +47,7 @@ public class BillingService {
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(billData, headers);
 
         try {
-            restTemplate.postForEntity("http://localhost:8084/processNotification", request, void.class);
+            restTemplate.postForEntity("http://integration-esb:8084/processNotification", request, void.class);
         } catch (HttpClientErrorException e) {
             System.err.println("Error response received: " + e.getStatusCode() + " - " + e.getResponseBodyAsString());
             throw e;
